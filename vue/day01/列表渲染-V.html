@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+
+  <!-- V -->
+  <div id="app">
+    {{arr}}
+    <ul>
+      <li v-for="val in arr">{{val}}</li>
+    </ul>
+    <hr> {{ json.a }} / {{json.b}}
+
+    <hr>
+<!-- 数据嵌套 v-for  -->
+    <ul>
+      <li v-for="item in news">
+        <a :href="item.href" v-bind:title="item.title">{{item.content}}</a>
+        <ul>
+          <li v-for="item in item.child">
+            <a :href="item.href" :title="item.title">{{item.content}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+  </div>
+
+
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {  //M
+        str: 'bmw7',
+        num: 110,
+        arr: ['apple', 'ornage', 'banna', 'pear'],
+        json: { a: 1, b: 2 },
+        strong: '<strong>虚胖</strong>',
+        url: 'https://www.baidu.com/img/bd_logo1.png',
+        news: [
+          {            
+id: 1, title: 'xxx1', content: 'ooo1', href: "#23", child: [
+              { id: 1, title: 'iiii1', content: 'ooo1', href: "#23" },
+              { id: 2, title: 'iiii2', content: 'ooo2', href: "#23" }
+            ]
+          },
+          { id: 2, title: 'xxx2', content: 'ooo2', href: "#23",child: [
+              { id: 1, title: 'iiii1', content: 'ooo1', href: "#23" },
+              { id: 2, title: 'iiii2', content: 'ooo2', href: "#23" }
+            ] },
+          { id: 3, title: 'xxx3', content: 'ooo3', href: "#23" },
+          { id: 4, title: 'xxx4', content: 'ooo4', href: "#23" },
+        ]
+      }
+    })
+  </script>
+</body>
+
+</html>

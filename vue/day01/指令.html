@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .box{background:red}
+  </style>
+</head>
+<body>
+  <!-- v-model  / v-html / v-for / v-on / v-text  -->
+  <!-- V -->
+  <div id="app">
+    <input type="button" @click="bl=!bl">
+    <!-- <div class="box" v-if="bl">box</div> -->
+    <div class="box" v-show="bl">box</div>
+  </div>
+
+  <script>
+    var vm=new Vue({
+      el:'#app',
+      data:{
+        str:'bmw',
+        bl:false
+      }
+    })
+  </script>
+</body>
+</html>

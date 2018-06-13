@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .box{background:red;width: 100px;height:100px;position: absolute;left:0;top:0}
+  </style>
+</head>
+<body>
+  <!-- v-red  -->
+  <!-- V -->
+  <div id="app">
+   
+    <div @contextmenu="show2">
+      <!-- <input type="button" value="按钮" @click="show"> -->
+      <!-- <input type="button" value="按钮" @click.stop="show"> -->
+      <!-- <input type="button" value="按钮" @contextmenu="show"> -->
+      <!-- <input type="button" value="按钮" @contextmenu.prevent="show"> -->
+      <!-- <input type="button" value="按钮" @contextmenu.prevent.stop="show"> -->
+      <!-- <input type="text" value="按钮" @keyup="show3" v-model="ipt"> -->
+      <!-- <input type="text" value="按钮" @keyup.enter="show3" v-model="ipt"> -->
+      <!-- <input type="text" value="按钮" @keyup.13="show3" v-model="ipt"> -->
+      <input type="text" value="按钮" @keyup.left="show3" v-model="ipt">
+      <ul>
+        <li v-for="(val,index) of arr" :key="index">{{val}}</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    
+    var vm=new Vue({
+      el:'#app',
+      data:{
+        ipt:'dsf',
+        arr:[]
+      },
+      methods:{
+        show:function(ev){
+          alert('input');
+          // ev.stopPropagation(); //阻止冒泡
+          // ev.preventDefault();//阻止默认行为
+        },
+        show2:function(ev){
+         alert('div')
+        },
+        /* show3:function(ev){
+          // console.log(ev.keyCode);
+          if(ev.keyCode===13){
+            // this.arr.push(Math.random())
+            this.arr.push(this.ipt);
+            this.ipt='';
+          }
+        } */
+        show3:function(){
+            this.arr.push(this.ipt);
+            this.ipt='';
+        }
+      
+      }
+
+    })
+  </script>
+</body>
+</html>

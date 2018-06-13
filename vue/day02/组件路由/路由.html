@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+  <script src="./js/vue-router.js"></script>
+
+</head>
+
+<body>
+  <div id="app">
+    <!-- 路由调用 -->
+    <router-link to="/home">首页</router-link>
+    <router-link to="/news">新闻</router-link>
+    <router-link to="/user">用户</router-link>
+    <router-view/>
+  </div>
+
+ 
+  <script>
+    // 调用组件
+    let home={
+      template:'<div>我是主页</div>'
+    }
+    let news={
+      template:'<div>我是新闻页</div>'
+    }
+    let user={
+      template:'<div>我是用户页</div>'
+    }
+    //配置路由
+    let routes = [
+      {path:'/home',component:home},
+      {path:'/news',component:news},
+      {path:'/user',component:user},
+    ];
+    //创建路由对象
+    let router = new VueRouter({
+      // key:value
+      // routes:数组
+      routes:routes
+    });
+
+    let vm = new Vue({
+      name: 'Main',
+      el: '#app',
+      data:{
+        
+      },
+      // router:路由对象
+      router:router
+    })
+  </script>
+</body>
+
+</html>

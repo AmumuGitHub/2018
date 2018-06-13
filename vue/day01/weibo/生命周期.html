@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+  
+</head>
+<body>
+  
+  <div id="app">
+      <input type="text" v-model="ipt">
+  </div>
+
+  <script>
+    let vm = new Vue({
+      el:'#app',
+      data:{
+        ipt:''
+      },
+      // create/mount/update/destroy/before/ed
+      beforeCreate(){
+        console.log('实例化之前')
+      },
+      created(){
+        console.log('实例化之后')
+      },
+      beforeMount(){
+        console.log('挂载之前')
+      },
+      mounted(){
+        console.log('挂载之后')
+      },
+      beforeUpdate(){
+        console.log('数据更新之前')
+      },
+      updated(){
+        console.log('数据更新之后')
+      },
+      beforeDestroy(){
+        console.log('组件销毁之前')
+      },
+      destroyed(){
+        console.log('组件销毁之后')
+      },
+
+    });
+  </script>
+
+</body>
+</html>

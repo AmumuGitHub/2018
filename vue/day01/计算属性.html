@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <!-- V -->
+  <div id="app">
+    <div>{{str}}</div>
+    <div>{{num + 9}}</div>
+    <div>{{ bl? '处':'否色' }}</div>
+    <div>展示：{{ str2.split(' ').reverse().join(' ') }}</div>
+    <!-- <div>{{ fn() }}</div> -->
+    <!-- <div>{{ if(true){alert('ok')}}}</div> -->
+    <div>计算属性:{{ cptStr2 }}</div>
+    <!-- <div>{{ undefined }}</div> -->
+    <!-- <div>{{ null }}</div> -->
+    <input type="text" v-model="str2">
+  </div>
+
+  <script>
+    var vm=new Vue({
+      el:'#app',
+      data:{
+        str:'bmw',
+        num:110,
+        bl:false,
+        str2:'i love you',
+        fn:function(){alert('ok')}
+      },
+      computed:{
+        // 计算属性:函数
+        cptStr2:function(){
+          return this.str2.split(' ').reverse().join(' ');
+        }
+      }
+    })
+  </script>
+</body>
+</html>

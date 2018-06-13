@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+  <script src="./js/vue-router.js"></script>
+  <style>
+    .router-active1{background: #399}
+    .router-active2{background: #939}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 路由调用 -->
+    <router-link to="/home" active-class="router-active1">首页</router-link>
+    <router-link to="/news" active-class="router-active1">新闻</router-link>
+    <router-link to="/user" active-class="router-active1">用户</router-link>
+    <router-view>展示区</router-view>
+  </div>
+
+  <template id="user">
+    <div class="user">
+        <h3>我是用户页</h3>
+        <router-link to="/user/login" active-class="router-active2">登录</router-link>
+        <router-link to="/user/reg" active-class="router-active2">注册</router-link>
+        <router-view>展示区</router-view>
+    </div>
+  </template>
+
+  <template id="news">
+    <div class="news">
+      <h3>我是新闻页</h3>
+      <router-link tag="li" to="/news/detail/001">
+        <a href="xx">列表001</a>
+      </router-link>
+      <router-link tag="li"  :to="{name:'detail',params:{aid:'002'}}">列表002</router-link>
+      <router-link tag="li"  :to="{name:'detail',params:{aid:'003'},query:{data:'数据'}}">列表003</router-link>
+      <router-view></router-view>
+    </div>
+  </template>
+
+  <template id="detail">
+    <div class="detail">
+      <h3>我是详情页</h3>
+      接受参数:{{$route.params.aid}}<br>
+      接受数据:{{$route.query.data}}<br>
+    </div>
+  </template>
+  
+  <template id="home">
+    <div class="home">
+      <h3>我是首页</h3>
+      <input type="button" value="去登录" @click="goLogin">
+      <input type="button" value="去注册" @click="goReg">
+    </div>
+  </template>
+
+  <template id="login">
+    <div class="login">
+      <h3>我是登录也</h3>
+      <input type="button" value="返回" @click="goback">
+    </div>
+  </template>
+  
+  <script>
+    // 调用组件
+    let home={
+      template:'#home',
+      methods:{
+        goLogin(){
+          console.log(this.$router);
+          this.$router.push({path:'/user/login'});//跳转 添加历史记录
+        },
+        goReg(){
+          console.log(this.$router);
+          this.$router.replace({path:'/user/reg'});//跳转 不添加历史记录
+        }
+      }
+    }
+    let news={
+      template:'#news'
+    }
+    let user={
+      template:'#user'
+    }
+    let error={
+      template:'<div>我是404</div>'
+    }
+    let login={
+      template:'#login',
+      methods:{
+        goback(){
+          this.$router.go(-1);//回退
+        }
+      }
+    }
+    let reg={
+      template:'<div>我是注册页</div>'
+    }
+    let detail={
+      template:'#detail',
+      mounted(){
+        console.log(this.$route.params);//接受参数
+        console.log(this.$route.query);//数据
+        // this.$http(url,{params:{id:aid}}).then()
+      }
+    }
+    //配置路由
+    let routes = [
+      {path:'/home',component:home},
+      {
+        path:'/news',
+        component:news,
+        children:[
+          {name:'detail',path:'detail/:aid',component:detail}
+        ]
+      },
+      {
+        path:'/user',
+        component:user,
+        children:[
+          {path:'login',component:login},
+          {path:'reg',component:reg},
+          // {path:'',redirect:'/user/login'}//子路由默认页
+        ]
+      },
+      {path:'/',redirect:'/home'},//路由跳转
+      {path:'*',component:error}//* 任意路由  ** 任意子路由
+    ];
+    //创建路由对象
+    let router = new VueRouter({
+      routes
+    });
+
+    let vm = new Vue({
+      name: 'Main',
+      el: '#app',
+      router
+    })
+  </script>
+</body>
+
+</html>

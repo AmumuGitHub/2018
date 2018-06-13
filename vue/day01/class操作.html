@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .box{background:red}
+    .w{width:300px;}
+    .h{height:300px;}
+  </style>
+</head>
+<body>
+  <!-- v-model  / v-html / v-for / v-on / v-text / v-if / v-show / v-bulala  -->
+  <!-- V -->
+  <div id="app">
+    <!-- <div v-bind:class="cl">box</div> -->
+    <!-- <div :class="cl">box</div> -->
+    <!-- <div :class="{box:true,w:true,h:false}">box</div> -->
+    <!-- <div :class="json">box</div> -->
+    <!-- <div :style="json2">box</div> -->
+    <div :style="arr">box</div>
+  </div>
+
+  <script>
+    var vm=new Vue({
+      el:'#app',
+      data:{
+        str:'bmw',
+        bl:false,
+        cl:'box w ',
+        json:{box:true,w:false,h:true},
+        json2:{background:'blue',width:'10px'},
+        arr:[{backgroundColor:'blue'},{width:'10px'}]
+      }
+    })
+  </script>
+</body>
+</html>

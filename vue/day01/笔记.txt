@@ -1,0 +1,144 @@
+VUE:
+	官网：https://cn.vuejs.org
+	API：https://cn.vuejs.org/v2/api/
+
+	小 -> 大
+	封装(函数)->多个封装(文件)==库||框架
+					↓
+				   插件
+
+				   模块(文件)  分类（目录)->包
+	框架：改变了编码思想   VUE: 数据驱动，一切都是数据,面向数据
+		面向  事件
+		面向  对象
+		面向  数据
+	库:  工具本身不改变编码的方式
+		jquery -> dom		事件驱动
+
+MVC：html页面里面会出现<%=后台属性%>  {$后台属性$} {{后台属性}} mustache
+	一个思想、是后端产物,是为了前后端分离
+	1. 后台 java(jsp+html)  php(php+html+js)  nodejs(nodejs+ejs)
+	2. 前台 (html+css+js)
+	3. 编辑 (拿着后台给他开发的后台管理页面xxx.com:8008/admin.php)
+	4. 设计
+
+前端MVC(分离js)：   数据、表现、业务分离
+	model		M  数据  ajax/jsonp/数据解析  可以复用
+		| xx.js
+		...
+	view	    V  视图表现层 展示数据、创建元素，变色，运动 可以复用
+		...
+	control		C  控制层(串业务,事件驱动)  一般不复用
+		...
+
+	function readBaidu(str,callback){..拿着需求str,求数据，调用回调带数据出去.}
+	function writeLi(data){...拿着数据写页面}
+	
+	window.onload=function(){
+		oBtn.onclick=function(){
+			readBaidu('xxx',function(res){
+				writeLi(res);
+				winObj.close()
+			})
+		}
+	}
+VUE: 是个M V VM框架
+	MVC:衍生出很多变体  MVP MVVM MV*
+	mv  vm~C
+	MVVM 	M  -> VM -> V
+
+基本使用：
+	new出来一个Vue的实例，传一堆配置参数，控制一片html
+
+	VM:		响应系统 - > vDOM做标记 ->一个循环周期结束后->操作DOM
+		new Vue   返回  VM
+		new Vue({
+			el:'选择器'  要控制器的那片html代码
+			data:{key:value}数据
+			methods:{fnName:fn} 方法
+		})
+	M:	初始化数据
+		data 选项   number/string/boolean/array/json/undefined/null
+	V:  数据绑定
+		{{数据名}}	模板 mustche  插值表达式
+		v-text="数据名"		vue特有的属性(指令)
+		v-html="strong"		非转义输出
+		v-for="(val,index) in 数据"		val值  index索引	变量数组、对象
+			key="bmw"  指定key 是个bmw字符 vue是认得 修改VDom的key值
+			:key="item.id"  指定key 是数据id（唯一性） 修改VDom的key值
+		v-bind:html属性="数据"	普通的html属性绑定数据
+			:html属性="数据"  简写   title/src/url/.....
+		事件：
+			v-on:事件名="方法"
+			   @:事件名="方法"	简写
+			   @:事件名="方法(参数)"
+			   @:事件名="方法($event,参数)"		methods:{方法:function(ev,参数){ev/event}}
+计算属性:  是一个函数,所依赖的元数据变化时，就会再次执行
+	computed:{
+		计算属性:函数:function(){return 返回值}		使用:	{{计算属性}}
+	}
+
+	与method的区别:	方法会每次调用，计算属性不会(只有在与之相关的元数据发生变化时，才调用)
+		计算属性的性能高: 适合做筛选
+		方法：适合在列表渲染使用，强制渲染执行
+
+指令:  扩展了html语法功能,区别了普通的html属性
+	vue自带的指令:	v-text/v-html/v-bind/v-for/v-model/v-on   
+	
+			v-show="布尔" 			v-if="布尔"
+	区别:	操作css					操作dom
+	场景:	适合频繁切换		    适合不频繁切换
+	性能:	初始渲染消耗			频繁切换回有消耗
+
+自定义指令: 指令是个函数|对象,用来操作dom的, 里面的this 返回window
+	a)	Vue.directive('指令名不带v-',函数(el,binding))
+		el == 使用指令的DOM元素
+		binding 是个对象 含有传入的 参数(binding.value)
+	b)  定义在选项里面
+		directives:{
+			指令名不带v-	: 函数(el,binding){}
+		}
+
+	指令是个函数(简写)，可以是个对象
+
+	{
+		钩子函数(生命周期)
+		inserted:fn(el,binding)		绑定指令的元素插入到父节点时调用
+		bind:fn	指令第一次绑定到元素时调用
+		update:fn	指令所在的元素的model层的数据，view有更新请求时
+		componentUpdated:fn	更新完成时
+	}
+
+	简写方式: bind + update
+------------------------------------------------------------------------------------
+	vue-resource   下载安装引入   vue1.x 推荐	支持jsonp
+		使用:	返回的是promise对象
+
+		this.$http.get('url地址?key=value&key=value').then(succFN,errorFn)
+		this.$http.get('url地址',{配置}).then(succFN,errorFn)
+		this.$http.post('url地址',{数据},{配置}).then(succFN,errorFn)
+		this.$http.jsonp('url地址',{配置}).then(succFN,errorFn)
+		this.$http({})
+			配置:
+				params: {key:value}  携带数据  get
+				headers: {}  携带请求头
+				method：'get' get/post/.....   string
+				timeout: number  超时
+				progress：fn   进度
+				credentials: false  是否携带跨源凭证
+				emulateJSON：true post请求是需要携带的请求头
+				jsonp:'回调函数键' 默认是callback
+			响应：
+				body      返回的数据  对象  (JSONP.parse)
+				bodyText  返回的数据  文本格式  toString
+
+
+	axios	下载安装引入	vue2.x只有推荐		截止2018-1-13 不支持jsonp 
+		axios({
+			url: 地址
+			method: 提交方法   get/post/put........
+			params: get提交参数
+			data: post提交参数  参数==URLSearchParams  new URLSearchParams().set(key,value)
+			timeout:超时间
+			headers： 请求头
+		})

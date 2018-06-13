@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  
+  <!-- V -->
+  <div id="app">
+    <div v-text="str"></div>
+    <div v-html="strong"></div>
+    <img v-bind:src="url" alt="">
+    <img :src="url" alt="">
+  </div>
+  
+
+  <script>
+    let vm = new Vue({
+      el:'#app',
+      data:{  //M
+        str:'bmw7',
+        num:110,
+        arr:['apple','ornage','banna','pear'],
+        json:{a:1,b:2},
+        strong:'<strong>虚胖</strong>',
+        url:'https://www.baidu.com/img/bd_logo1.png'
+      }
+    })
+  </script>
+</body>
+</html>

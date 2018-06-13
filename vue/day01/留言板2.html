@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+</head>
+
+<body>
+
+  <div class="container">
+    <h3>留言板</h3>
+    <div class="form-group">
+      <label for="">用户名</label>
+      <input type="text" class="form-control" v-model="iptUserName">
+    </div>
+    <div class="form-group">
+      <label for="">内容</label>
+      <textarea class="form-control"  v-model="iptContent" id="" rows="3"></textarea>
+    </div>
+    <button class="btn btn-primary" @click="add">提交</button>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>用户</th>
+          <th>内容</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item,index) in list" :key="item.id">
+          <td scope="row">{{item.user}}/{{index}}</td>
+          <td>{{item.content}}</td>
+          <td>
+            <button class="btn btn-danger" @click="del(index)">删除</button>
+            <button @click="check(index)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#todilist">
+              修改
+            </button>
+            <button @click="checkColor">修改颜色</button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <input type="button" class="btn" @click="removeAll" value="清空留言">
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="todilist" tabindex="-1" role="dialog" aria-labelledby="todilistLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="todilistLabel">{{checkUser}}用户</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <textarea class="form-control"  v-model="checkConent" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button @click="save" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    let vm =new Vue({
+      el:'.container',
+      data:{
+        iptUserName:'...',
+        iptContent:'...',
+        checkConent:'...',
+        checkNow:-1,
+        checkUser:'',
+        list:[
+          {id:1,user:'alex',content:'还钱'},
+          {id:2,user:'ppp',content:'我不在'},
+        ]
+      },
+      methods:{
+        add:function(){
+          this.list.unshift({
+            user:this.iptUserName,
+            content:this.iptContent
+          });
+          this.iptContent=this.iptUserName='';
+        },
+        del:function(index){
+          this.list.splice(index,1);//数组操作
+        },
+        removeAll:function(){
+          this.list=[];
+        },
+        check:function(index){
+          //确定修改的元素的 索引 index , copy数据给modal
+          this.checkConent=this.list[index].content;
+          this.checkNow=index;
+          this.checkUser=this.list[index].user;
+        },
+        save:function(){
+          this.list[this.checkNow].content=this.checkConent;
+        },
+        checkColor:function(ev){
+          ev.srcElement.parentNode.parentNode.style.background='red'; //×
+        }
+      }
+    })
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

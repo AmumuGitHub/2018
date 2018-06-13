@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+  <link rel="stylesheet" href="./css/animate.css">
+  <style>
+  .box{background: red;width:100px;height:100px;}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 使用组件 -->
+    <input type="button" value="按钮" @click="bl=!bl">
+    <transition
+      enter-active-class = "animated zoomInLeft"
+      leave-active-class = "animated zoomOutRight"
+    >
+        <div class="box" v-show="bl">box</div>
+    </transition>
+  </div>
+
+ 
+  <script>
+    let vm = new Vue({
+      name: 'Main',
+      el: '#app',
+      data:{
+        bl:false,
+      }
+    })
+  </script>
+</body>
+
+</html>

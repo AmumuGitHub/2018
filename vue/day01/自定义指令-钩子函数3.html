@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .box{background:red;width: 100px;height:100px;position: absolute;left:0;top:0}
+  </style>
+</head>
+<body>
+  <!-- v-red  -->
+  <!-- V -->
+  <div id="app">
+   
+    <input type="text">
+    <input type="text" v-focus :value="ipt">
+    <input type="text">
+
+  </div>
+
+  <script>
+
+    //钩子函数
+
+    Vue.directive('focus',function(el){
+      console.log('...')
+      el.focus();
+    })
+
+    /* Vue.directive('focus',{
+      bind:function(el){
+        //指令第一次放到到元素时调用,值调用一次
+        console.log('bind')
+        // el.focus();
+      },
+      update:function(){
+        //指令所在的元素，数据，模板更新
+        console.log('update')
+      },
+      componentUpdated:function(){
+         //更新完成
+         console.log('componentUpdated')
+      },
+      inserted:function(el){
+        //指令所在的元素,被插入到父节点时调用
+        console.log('inserted');
+        el.focus()
+      }
+    }) */
+    
+    var vm=new Vue({
+      el:'#app',
+      data:{
+        ipt:'dsf'
+      }
+
+    })
+  </script>
+</body>
+</html>

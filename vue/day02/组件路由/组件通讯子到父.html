@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 使用组件 -->
+    <h3>我是父组件</h3>
+    我收到的{{msg2}}
+    <child @to-parent="show"></child>
+  </div>
+
+  <template id="child">
+    <div class="child">
+      <h3>我是子组件</h3>
+      <div>{{msg}}</div>
+    </div>
+  </template>
+  <script>
+
+    let child={
+      template:'#child',
+      data(){
+        return {
+          msg:'子数据'
+        }
+      },
+      mounted(){
+        this.$emit('to-parent',this.msg)
+      }
+    };
+
+    let vm = new Vue({
+      name: 'Main',
+      el: '#app',
+      data:{
+        msg:'父数据',
+        msg2:'无'
+      },
+      components:{
+        child
+      },
+      methods:{
+        show(data){
+          alert(data);
+          this.msg2=data;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

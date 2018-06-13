@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+<body>
+  <!-- V -->
+  <div id="app">
+    <input type="text" v-model="ipt">
+    <ul>
+      <li v-for="(val,index) in cptList" :key="index">
+        {{val}}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    var vm=new Vue({
+      el:'#app',
+      data:{
+        ipt:'',
+        list:['apple','orange','banana','pear']
+      },
+      computed:{
+        cptList:function(){
+          console.log('...')
+          var _this=this;
+          var result=[];
+          this.list.forEach(function(val,index){
+            if(val.indexOf(_this.ipt) != -1){
+              result.push(val);
+            }
+          });
+          return result;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

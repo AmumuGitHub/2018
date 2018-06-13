@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 使用组件 -->
+
+    <hd></hd>
+    <wrap></wrap>
+    <ft></ft>
+  </div>
+
+  <style>
+    .hd {
+      background: red
+    }
+  </style>
+  <template id="hd">
+    <div class="hd">
+      <nav>
+        <a v-for="val in arr" href="xx">{{val}}</a>
+      </nav>
+    </div>
+  </template>
+  <script>
+    // 定义组件
+    let hd = {
+      // template:'选择器'
+      template: '#hd',
+      data(){
+        return {
+          arr:['apple','orange','banana']
+        }
+      }
+    };
+  </script>
+
+  <script>
+    let wrap = {
+      template: '<div>我是wrap组件{{msg}}</div>',
+      data() {
+        return {
+          msg: 'bmw'
+        }
+      }
+    }
+     
+    let ft = {
+      template: '<div @click="show">我是ft组件</div>',
+      methods:{
+        show(){
+          alert('ok')
+        }
+      }
+    }
+
+    let vm = new Vue({
+      name: 'Main',
+      el: '#app',
+      components: {//注册组件到组件内部
+        hd, wrap, ft
+      }
+      
+    })
+  </script>
+</body>
+
+</html>

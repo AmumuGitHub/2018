@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h4>购物车</h4>
+    <dl v-for="(item,index) of list" :key="item.id">
+      <dt>商品名称:
+        <span class="badge badge-primary">{{item.name}}</span>
+      </dt>
+      <dd class="ml-3">单价:
+        <span class="badge badge-info">{{item.price | currency('RMB',2)}}</span>
+      </dd>
+      <dd class="ml-3">数量:
+        <input type="number" v-model="item.count" min="0" :max="item.max">
+      </dd>
+      <dd class="ml-3">小计:
+        <span class="badge badge-info">{{ item.price * item.count | currency('$',3) }}</span>
+      </dd>
+    </dl>
+    总价:{{cptSum | currency}}
+  </div>
+
+  <script>
+    let vm = new Vue({
+      el: '.container',
+      data: {
+        list: [
+          { id: 1, name: '西红柿', price: 4.6, count: 3, max: 4 },
+          { id: 2, name: '鸡蛋', price: 2.5, count: 7, max: 3 },
+          { id: 3, name: '黄瓜', price: 8.6, count: 1, max: 2 }
+        ]
+      },
+      filters: {
+        currency: function (data, currency, digit = 2) {
+          currency = currency || '$';
+          return currency + data.toFixed(digit);
+        }
+      },
+      computed: {
+        cptSum: function () {
+          var result = 0;
+          this.list.forEach(function (item, index) {
+            result += item.price * item.count;
+          });
+          return result;
+        }
+      }
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

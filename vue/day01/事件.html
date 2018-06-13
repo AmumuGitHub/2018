@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+
+</head>
+
+<body>
+  <!-- v-on:事件名   不带on-->
+  <div class="box">
+    <!-- <input type="button" :value="msg" v-on:click="show"> -->
+    <!-- <input type="button" :value="msg" @click="show"> -->
+    <input type="button" :value="msg" @click="show($event,12)">
+  </div>
+  <script>
+    let vm = new Vue({
+      el: '.box',
+      data: {
+        msg: 'bmw'
+      },
+      methods:{ //定义方法
+        show:function(ev,arg){
+          // alert(ev)// 事件对象
+          // alert(arg)//参数
+          // console.log(ev);
+          // console.log(this) // this 代表的是VM实例（根实例/根组件）
+          // console.log(this.msg) // 获取数据
+          // this.msg='qq' // 获取数据
+          // console.log(ev.srcElement);
+          ev.srcElement.style.background='red';
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .box{background:red;width: 100px;height:100px;position: absolute;left:0;top:0}
+  </style>
+</head>
+<body>
+  <!-- v-red  -->
+  <!-- V -->
+  <div id="app">
+   
+    <div v-drag class="box">box</div>
+
+  </div>
+
+  <script>
+
+    //2. 定义在组件（实例内部)
+    var vm=new Vue({
+      el:'#app',
+      data:{
+        color:'yellow'
+      },
+      directives:{
+        drag:function(el){
+          el.onmousedown=function(ev){
+            var disX=ev.pageX-this.offsetLeft;
+            var disY=ev.pageY-this.offsetTop;
+            document.onmousemove=function(ev){
+              el.style.left=ev.pageX-disX+'px';
+              el.style.top=ev.pageY-disY+'px';
+            };
+            document.onmouseup=function(){
+              document.onmousemove=document.onmouseup=null;
+            };
+            return false;
+          }
+        }
+      }
+
+    })
+  </script>
+</body>
+</html>

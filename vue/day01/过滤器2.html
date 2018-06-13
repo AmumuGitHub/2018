@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <!-- 1.x 自带过滤器   2.x 没有自带，需要自定义过滤器 -->
+  <div id="app">
+    {{ num | toFix }}
+    <br> {{ num | currency('$',3) }}
+    <br>
+  </div>
+
+  <script>
+    //b)定义实例|组件
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        num: 23.234234
+      },
+      filters: {
+        toFix: function (data) {
+          console.log(data);
+          return data.toFixed(2);
+        },
+        currency: function (data, currency, digit) {
+          return currency + data.toFixed(digit);
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>

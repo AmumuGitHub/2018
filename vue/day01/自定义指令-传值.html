@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+  <style>
+    .box{background:red}
+    .w{width:300px;}
+    .h{height:300px;}
+  </style>
+</head>
+<body>
+  <!-- v-red  -->
+  <!-- V -->
+  <div id="app">
+   
+    <div v-color="'blue'">box</div>
+
+  </div>
+
+  <script>
+    //1.定义在全局(Vue类)
+    // Vue.directive(指令名,函数)  注意不带 v-
+    Vue.directive('color',function(el,binding){
+      // console.log(binding); //对象
+      // console.log(binding.value);
+      el.style.background=binding.value;
+    });
+    //2. 定义在组件（实例内部)
+    var vm=new Vue({
+      el:'#app',
+      data:{
+      }
+    })
+  </script>
+</body>
+</html>

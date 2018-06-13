@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 使用组件 -->
+    
+    <hd></hd>
+    <!-- <wrap></wrap> -->
+    <!-- <ft></ft> -->
+
+  </div>
+  <script>
+
+    // 定义
+    let hd = {
+      template:'<div>我是hd组件</div>'
+    }
+
+    //注册全局
+    // Vue.component('组件名',组件变量名)
+    // Vue.component('hd',hd)
+
+    let vm = new Vue({
+      name:'Main',
+      el:'#app',
+      components:{
+        // 组件名:组件变量名
+        'hd':hd
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <script src="./vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <input type="button" @click="get" value="读取静态数据"><br>
+    <input type="button" @click="getPhp" value="读取动态数据GET"><br>
+    <input type="button" @click="postPhp" value="读取动态数据POST"><br>
+    <input type="button" @click="jsonp" value="jsonp"><br>
+    {{msg}}
+    
+  </div>
+
+  <script>
+    let vm = new Vue({
+      el: '.container',
+      data: {
+        msg:"暂无数据"
+      },
+      methods:{
+        get(){
+          //请求静态文件
+          let p1 = axios({
+            url:'/data/data.json'
+          });
+
+          p1.then(function(res){
+            console.log(res);
+            this.msg=res.data.a
+          },function(err){
+            console.log(err);
+          })
+        },
+        getPhp(){
+          let url='http://localhost:80/get.php'
+          axios({
+            url:url,
+            params:{
+              a:1,b:2
+            }
+          }).then(function(res){
+            console.log(res);
+          },function(er){
+            console.log(er);
+          })
+        },
+        postPhp(){
+          let url='http://10.0.13.51/post.php'
+          // this.$http({配置}).then(function(res){
+            var params = new URLSearchParams();
+            params.append('a', 11);
+            params.append('b', 2);
+
+          axios({
+            method:'post',
+            url:url,
+            data:params,
+            headers:{'Content-Type': 'application/x-www-form-urlencoded'}
+          }).then(function(res){
+            console.log(res);
+          },function(er){
+            console.log(er);
+          })
+        },
+        jsonp(){// 高
+         //axios没有jsonp
+        }
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>
